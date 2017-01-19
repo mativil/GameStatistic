@@ -1,6 +1,6 @@
 package dao;
 
-import entity.User;
+import entity.*;
 import entity.UserAlreadyExistsException;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -53,6 +53,33 @@ public class HibernateMySqlTest extends Assert {
             // Это первый сохранённый пользователь, его id 1
             User user1 = em.find(User.class, 1);
             assertEquals(userName, user1.getLogin());
+        } finally {
+            em.getTransaction().commit();
+        }
+    }
+
+    @Test
+    public void addHeroes() throws Exception {
+        String heroName1 = "Nazeebo";
+        String heroName2 = "Raynor";
+        em.getTransaction().begin();
+        try {
+            Hero hero1 = new Hero();
+            hero1.setName(heroName1);
+            hero1.setDescription("Отважный герой Назибо. Специалист дальнего боя");
+            Hero hero2 = new Hero();
+            hero2.setName(heroName2);
+            hero2.setDescription("Отважный герой Джим Рейнор. Боец дальнего боя");
+            em.persist(hero1);
+            em.persist(hero2);
+
+            // Печатаем всех героев
+            for(Hero h : em.createNamedQuery(Hero.ALL_HEROES, Hero.class).getResultList())
+                System.out.println(h.getId() + " "+ h.getName() + " "+h.getDescription());
+            }
+            catch(Exception e) {
+                //Вставило действительно двух героев
+                assertEquals(2, em.createNamedQuery(Hero.ALL_HEROES, Hero.class).getResultList().size());
         } finally {
             em.getTransaction().commit();
         }

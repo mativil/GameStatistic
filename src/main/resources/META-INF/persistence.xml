@@ -82,7 +82,7 @@
             <property name="hibernate.connection.shutdown" value="true"/>
             <!-- Стратегия, по которой Hibernate меняет схему (стуктуру БД) -->
             <!-- create-drop - пересоздание БД, т.к. это модульный тест -->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>
