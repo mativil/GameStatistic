@@ -8,7 +8,7 @@
         <datasource-mapping>
           <factory-entry name="Production-MySQL" />
           <factory-entry name="Unit-tests-HSQLDB" />
-          <factory-entry name="Unit-tests-MySQL" />
+          <factory-entry name="Unit-tests-MySQL" value="29342440-1666-4089-9b89-f23c3b059a9c" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>

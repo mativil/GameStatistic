@@ -1,28 +1,23 @@
 package entity;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.*;
 
 /**
  * Created by Ivan on 19.01.2017.
  */
 @Entity
-@Table(name = "hero")
-@NamedQueries({
-        @NamedQuery(name = Hero.ALL_HEROES,
-                query = "select h from Hero h"),
-        @NamedQuery(name = Hero.FIND_BY_NAME,
-                query = "select h from Hero h where h.name = :name")
-})
-public class Hero {
-    public static final String ALL_HEROES = "Hero.allHeroes";
-    public static final String FIND_BY_NAME = "Hero.findByName";
+@Table(name = "`character`")
+
+public class CharacterEntity {
 
     /**
      * id пользователя
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HERO_ID", insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", insertable = false, updatable = false)
     private int id;
 
     /**
@@ -34,6 +29,17 @@ public class Hero {
 
     @Column
     private String description;
+
+    @OneToOne(targetEntity = CharacterTypeEntity.class)
+    CharacterTypeEntity type;
+
+    public CharacterEntity() {
+    }
+
+    public CharacterEntity(String name, CharacterTypeEntity type) {
+        this.name = name;
+        this.type = type;
+    }
 
     public String getName()
     {

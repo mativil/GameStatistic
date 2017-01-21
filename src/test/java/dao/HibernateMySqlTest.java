@@ -1,7 +1,6 @@
 package dao;
 
 import entity.*;
-import entity.UserAlreadyExistsException;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -9,8 +8,10 @@ import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class HibernateMySqlTest extends Assert {
     // Определяет подключение к БД - какую БД сейчас использовать?
@@ -34,85 +35,80 @@ public class HibernateMySqlTest extends Assert {
      * Добавляем одного пользователя, находим его по id
      */
     @Test
-    public void testOneUser() throws Exception {
-        String userName = "admin";
+    public void testSystem(){
         em.getTransaction().begin();
-        try {
-            if (findByLogin(userName) != null) {
-                throw new UserAlreadyExistsException();
-            }
-            User user = new User();
-            user.setLogin(userName);
-            em.persist(user);
 
-            // Печатаем всех пользователей
-            for (User u : em.createNamedQuery(User.ALL_USERS, User.class).getResultList()) {
-                System.out.println(u.getId() + " login = " + u.getLogin());
-            }
+        CharacterTypeEntity ctWarrior = new CharacterTypeEntity("Боец");
+        CharacterTypeEntity ctSupport = new CharacterTypeEntity("Поддержка");
+        CharacterTypeEntity ctTank = new CharacterTypeEntity("Танк");
+        CharacterTypeEntity ctSpec = new CharacterTypeEntity("Специалист");
+        em.persist(ctWarrior);
+        em.persist(ctSupport);
+        em.persist(ctTank);
+        em.persist(ctSpec);
 
-            // Это первый сохранённый пользователь, его id 1
-            User user1 = em.find(User.class, 1);
-            assertEquals(userName, user1.getLogin());
-        } finally {
-            em.getTransaction().commit();
+        MapEntity map1 = new MapEntity("Карта1");
+
+        em.persist(map1);
+
+        List<CharacterEntity> characters = new ArrayList<CharacterEntity>();
+        characters.add(new CharacterEntity("Назибо", ctSpec));
+        characters.add(new CharacterEntity("Ли-Ли", ctSupport));
+        characters.add(new CharacterEntity("Рейнор", ctWarrior));
+        characters.add(new CharacterEntity("Квазимодо", ctWarrior));
+        characters.add(new CharacterEntity("Братуха-борцуха", ctTank));
+        characters.add(new CharacterEntity("Лейтенант Моралес", ctSupport));
+        characters.add(new CharacterEntity("Штучка-дрючка", ctWarrior));
+        characters.add(new CharacterEntity("Базилио", ctSpec));
+        characters.add(new CharacterEntity("Антоха", ctWarrior));
+        characters.add(new CharacterEntity("Бесполезный дворф", ctTank));
+
+        for(CharacterEntity character : characters)
+            em.persist(character);
+
+        List<PlayerEntity> players = new LinkedList<>();
+        for(int i = 0 ; i<10;i++)
+            players.add(new PlayerEntity("player"+i));
+
+        for(PlayerEntity player : players)
+            em.persist(player);
+
+
+        for(int i = 0; i < 10; i++)
+        {
+            List<CharacterStatisticEntity> charstats = new ArrayList<>();
+            for(int j = 0; j < 5; j++) {
+                CharacterStatisticEntity charStat =
+                        new CharacterStatisticEntity(characters.get((int) (Math.random() * 10)), players.get(j), (int) (Math.random() * 20), (int) (Math.random() * 20));
+                charstats.add(charStat);
+            }
+            TeamEntity team1 = new TeamEntity(charstats);
+
+            charstats = new ArrayList<>();
+            for(int j = 0; j < 5; j++) {
+                CharacterStatisticEntity charStat =
+                        new CharacterStatisticEntity(characters.get((int) (Math.random() * 10)), players.get(j+5), (int) (Math.random() * 20), (int) (Math.random() * 20));
+                charstats.add(charStat);
+            }
+            TeamEntity team2 = new TeamEntity(charstats);
+            LogEntity log = new LogEntity(team1, team2);
+
+            em.persist(team1);
+            em.persist(team2);
+            em.persist(log);
         }
+
+
+        em.getTransaction().commit();
     }
 
-    @Test
-    public void addHeroes() throws Exception {
-        String heroName1 = "Nazeebo";
-        String heroName2 = "Raynor";
-        em.getTransaction().begin();
-        try {
-            Hero hero1 = new Hero();
-            hero1.setName(heroName1);
-            hero1.setDescription("Отважный герой Назибо. Специалист дальнего боя");
-            Hero hero2 = new Hero();
-            hero2.setName(heroName2);
-            hero2.setDescription("Отважный герой Джим Рейнор. Боец дальнего боя");
-            em.persist(hero1);
-            em.persist(hero2);
 
-            // Печатаем всех героев
-            for(Hero h : em.createNamedQuery(Hero.ALL_HEROES, Hero.class).getResultList())
-                System.out.println(h.getId() + " "+ h.getName() + " "+h.getDescription());
-            }
-            catch(Exception e) {
-                //Вставило действительно двух героев
-                assertEquals(2, em.createNamedQuery(Hero.ALL_HEROES, Hero.class).getResultList().size());
-        } finally {
-            em.getTransaction().commit();
-        }
-    }
 
-    /**
-     * Получение пользователя по логину из БД
-     *
-     * @param login логин
-     * @return Пользователь или null если пользователь не найден
-     */
-    private User findByLogin(String login) {
-        try {
-            return (User) em.createQuery(
-                    "SELECT u FROM User u WHERE u.login = :login").
-                    setParameter("login", login).getSingleResult();
-        } catch (NoResultException ignored) {
-            return null;
-        }
-    }
+
 
     private String getPersistenceProperty(String propertyName) {
         return (String) emf.getProperties().get(propertyName);
     }
 
-    @Test
-    public void testGetConnectionProperties() {
-        String database = getPersistenceProperty("javax.persistence.jdbc.url");
-        String dbUser = getPersistenceProperty("javax.persistence.jdbc.user");
-        // Невозможно получить пароль в явном виде
-        String dbPassword = getPersistenceProperty("javax.persistence.jdbc.password");
-        System.out.println("database = " + database);
-        System.out.println("dbUser = " + dbUser);
-        System.out.println("dbPassword = " + dbPassword);
-    }
+
 }
