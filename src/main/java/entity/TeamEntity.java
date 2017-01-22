@@ -18,7 +18,7 @@ public class TeamEntity {
     private
     List<CharacterStatisticEntity> characterStatisticEntityList;
 
-    protected TeamEntity() {
+    public TeamEntity() {
     }
 
     public TeamEntity(List<CharacterStatisticEntity> characterStatisticEntityList) {
@@ -31,5 +31,9 @@ public class TeamEntity {
 
     public List<CharacterStatisticEntity> getCharacterStatisticEntityList() {
         return characterStatisticEntityList;
+    }
+
+    public void setCharacterStatisticEntityList(List<CharacterStatisticEntity> characterStatisticEntityList) {
+        this.characterStatisticEntityList = characterStatisticEntityList;
     }
 }

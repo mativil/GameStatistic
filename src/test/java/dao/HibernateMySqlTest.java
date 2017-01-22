@@ -60,18 +60,14 @@ public class HibernateMySqlTest extends Assert {
         characters.add(new CharacterEntity("Лейтенант Моралес", ctSupport));
         characters.add(new CharacterEntity("Штучка-дрючка", ctWarrior));
         characters.add(new CharacterEntity("Базилио", ctSpec));
-        characters.add(new CharacterEntity("Антоха", ctWarrior));
+        characters.add(new CharacterEntity("Антоха", ctSupport));
         characters.add(new CharacterEntity("Бесполезный дворф", ctTank));
 
-        for(CharacterEntity character : characters)
-            em.persist(character);
+
 
         List<PlayerEntity> players = new LinkedList<>();
         for(int i = 0 ; i<10;i++)
             players.add(new PlayerEntity("player"+i));
-
-        for(PlayerEntity player : players)
-            em.persist(player);
 
 
         for(int i = 0; i < 10; i++)
@@ -90,10 +86,29 @@ public class HibernateMySqlTest extends Assert {
                         new CharacterStatisticEntity(characters.get((int) (Math.random() * 10)), players.get(j+5), (int) (Math.random() * 20), (int) (Math.random() * 20));
                 charstats.add(charStat);
             }
+            team1.setCharacterStatisticEntityList(charstats);
+            em.persist(team1);
+
             TeamEntity team2 = new TeamEntity(charstats);
             LogEntity log = new LogEntity(team1, team2);
 
-            em.persist(team1);
+
+            for(CharacterEntity character : characters)
+                em.persist(character);
+
+            for(PlayerEntity player : players)
+                em.persist(player);
+
+            for(CharacterStatisticEntity cse : team1.getCharacterStatisticEntityList()) {
+                em.persist(cse);
+                System.out.println(cse.getId());
+            }
+
+            team2.setCharacterStatisticEntityList(charstats);
+
+            for(CharacterStatisticEntity cse : team2.getCharacterStatisticEntityList())
+                em.persist(cse);
+
             em.persist(team2);
             em.persist(log);
         }

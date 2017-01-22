@@ -25,7 +25,7 @@ public class CharacterStatisticEntity {
     private int deathsCount;
 
     @ManyToOne( targetEntity = TeamEntity.class, fetch = FetchType.EAGER)
-    TeamEntity team;
+    private TeamEntity team;
 
     protected CharacterStatisticEntity() {
     }
