@@ -14,7 +14,7 @@ public class TeamEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(targetEntity = HeroStatisticEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = HeroStatisticEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "team")
     private
     List<HeroStatisticEntity> HeroestatisticEntityList;
 
