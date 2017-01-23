@@ -14,26 +14,26 @@ public class TeamEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(targetEntity = CharacterStatisticEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "team")
+    @OneToMany(targetEntity = HeroStatisticEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private
-    List<CharacterStatisticEntity> characterStatisticEntityList;
+    List<HeroStatisticEntity> HeroestatisticEntityList;
 
     public TeamEntity() {
     }
 
-    public TeamEntity(List<CharacterStatisticEntity> characterStatisticEntityList) {
-        this.characterStatisticEntityList = characterStatisticEntityList;
+    public TeamEntity(List<HeroStatisticEntity> HeroestatisticEntityList) {
+        this.HeroestatisticEntityList = HeroestatisticEntityList;
     }
 
     public int getId() {
         return id;
     }
 
-    public List<CharacterStatisticEntity> getCharacterStatisticEntityList() {
-        return characterStatisticEntityList;
+    public List<HeroStatisticEntity> getHeroestatisticEntityList() {
+        return HeroestatisticEntityList;
     }
 
-    public void setCharacterStatisticEntityList(List<CharacterStatisticEntity> characterStatisticEntityList) {
-        this.characterStatisticEntityList = characterStatisticEntityList;
+    public void setHeroestatisticEntityList(List<HeroStatisticEntity> HeroestatisticEntityList) {
+        this.HeroestatisticEntityList = HeroestatisticEntityList;
     }
 }

@@ -8,9 +8,9 @@ import javax.persistence.*;
  * Created by Ivan on 19.01.2017.
  */
 @Entity
-@Table(name = "`character`")
+@Table(name = "`Hero`")
 
-public class CharacterEntity {
+public class HeroEntity {
 
     /**
      * id пользователя
@@ -30,13 +30,13 @@ public class CharacterEntity {
     @Column
     private String description;
 
-    @OneToOne(targetEntity = CharacterTypeEntity.class)
-    CharacterTypeEntity type;
+    @OneToOne(targetEntity = HeroTypeEntity.class)
+    HeroTypeEntity type;
 
-    public CharacterEntity() {
+    public HeroEntity() {
     }
 
-    public CharacterEntity(String name, CharacterTypeEntity type) {
+    public HeroEntity(String name, HeroTypeEntity type) {
         this.name = name;
         this.type = type;
     }

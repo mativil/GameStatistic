@@ -38,78 +38,74 @@ public class HibernateMySqlTest extends Assert {
     public void testSystem(){
         em.getTransaction().begin();
 
-        CharacterTypeEntity ctWarrior = new CharacterTypeEntity("Боец");
-        CharacterTypeEntity ctSupport = new CharacterTypeEntity("Поддержка");
-        CharacterTypeEntity ctTank = new CharacterTypeEntity("Танк");
-        CharacterTypeEntity ctSpec = new CharacterTypeEntity("Специалист");
+        //Добавим 4 типа героев
+        HeroTypeEntity ctWarrior = new HeroTypeEntity("Боец");
+        HeroTypeEntity ctSupport = new HeroTypeEntity("Поддержка");
+        HeroTypeEntity ctTank = new HeroTypeEntity("Танк");
+        HeroTypeEntity ctSpec = new HeroTypeEntity("Специалист");
         em.persist(ctWarrior);
         em.persist(ctSupport);
         em.persist(ctTank);
         em.persist(ctSpec);
 
+        //одну карту
         MapEntity map1 = new MapEntity("Карта1");
 
         em.persist(map1);
 
-        List<CharacterEntity> characters = new ArrayList<CharacterEntity>();
-        characters.add(new CharacterEntity("Назибо", ctSpec));
-        characters.add(new CharacterEntity("Ли-Ли", ctSupport));
-        characters.add(new CharacterEntity("Рейнор", ctWarrior));
-        characters.add(new CharacterEntity("Квазимодо", ctWarrior));
-        characters.add(new CharacterEntity("Братуха-борцуха", ctTank));
-        characters.add(new CharacterEntity("Лейтенант Моралес", ctSupport));
-        characters.add(new CharacterEntity("Штучка-дрючка", ctWarrior));
-        characters.add(new CharacterEntity("Базилио", ctSpec));
-        characters.add(new CharacterEntity("Антоха", ctSupport));
-        characters.add(new CharacterEntity("Бесполезный дворф", ctTank));
+        //10 уникальных героев
+        List<HeroEntity> heroes = new ArrayList<HeroEntity>();
+        heroes.add(new HeroEntity("Назибо", ctSpec));
+        heroes.add(new HeroEntity("Ли-Ли", ctSupport));
+        heroes.add(new HeroEntity("Рейнор", ctWarrior));
+        heroes.add(new HeroEntity("Квазимодо", ctWarrior));
+        heroes.add(new HeroEntity("Братуха-борцуха", ctTank));
+        heroes.add(new HeroEntity("Лейтенант Моралес", ctSupport));
+        heroes.add(new HeroEntity("Штучка-дрючка", ctWarrior));
+        heroes.add(new HeroEntity("Базилио", ctSpec));
+        heroes.add(new HeroEntity("Антоха", ctSupport));
+        heroes.add(new HeroEntity("Бесполезный дворф", ctTank));
 
+        for(HeroEntity hero: heroes)
+            em.persist(hero);
 
-
-        List<PlayerEntity> players = new LinkedList<>();
+        //10 игроков
+        List<PlayerEntity> players = new ArrayList<>();
         for(int i = 0 ; i<10;i++)
             players.add(new PlayerEntity("player"+i));
 
+        for(PlayerEntity player: players)
+            em.persist(player);
 
-        for(int i = 0; i < 10; i++)
+
+        int gamesCnt = 1000;
+        //и заданное количество игр
+        for(int i = 0; i < gamesCnt; i++)
         {
-            List<CharacterStatisticEntity> charstats = new ArrayList<>();
-            for(int j = 0; j < 5; j++) {
-                CharacterStatisticEntity charStat =
-                        new CharacterStatisticEntity(characters.get((int) (Math.random() * 10)), players.get(j), (int) (Math.random() * 20), (int) (Math.random() * 20));
-                charstats.add(charStat);
-            }
-            TeamEntity team1 = new TeamEntity(charstats);
-
-            charstats = new ArrayList<>();
-            for(int j = 0; j < 5; j++) {
-                CharacterStatisticEntity charStat =
-                        new CharacterStatisticEntity(characters.get((int) (Math.random() * 10)), players.get(j+5), (int) (Math.random() * 20), (int) (Math.random() * 20));
-                charstats.add(charStat);
-            }
-            team1.setCharacterStatisticEntityList(charstats);
+            //формируем команды
+            TeamEntity team1 = new TeamEntity();
             em.persist(team1);
-
-            TeamEntity team2 = new TeamEntity(charstats);
-            LogEntity log = new LogEntity(team1, team2);
-
-
-            for(CharacterEntity character : characters)
-                em.persist(character);
-
-            for(PlayerEntity player : players)
-                em.persist(player);
-
-            for(CharacterStatisticEntity cse : team1.getCharacterStatisticEntityList()) {
-                em.persist(cse);
-                System.out.println(cse.getId());
+            for(int j = 0; j < 5; j++) {
+                HeroStatisticEntity heroStat =
+                        new HeroStatisticEntity(heroes.get((int) (Math.random() * 10)), players.get(j), (int) (Math.random() * 20), (int) (Math.random() * 20), team1);
+                em.persist(heroStat);
             }
 
-            team2.setCharacterStatisticEntityList(charstats);
-
-            for(CharacterStatisticEntity cse : team2.getCharacterStatisticEntityList())
-                em.persist(cse);
-
+            TeamEntity team2 = new TeamEntity();
             em.persist(team2);
+            for(int j = 0; j < 5; j++) {
+                HeroStatisticEntity heroStat =
+                        new HeroStatisticEntity(heroes.get((int) (Math.random() * 10)), players.get(j+5), (int) (Math.random() * 20), (int) (Math.random() * 20), team2);
+                em.persist(heroStat);
+            }
+
+            //и лог
+            LogEntity log;
+            if(Math.random() > 0.5)
+                log = new LogEntity(team1, team2);
+            else
+                log = new LogEntity(team2, team1);
+
             em.persist(log);
         }
 

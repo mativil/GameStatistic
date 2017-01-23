@@ -83,6 +83,17 @@
                         <target>${java-version}</target>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>RELEASE</version>
+                    <configuration>
+                        <url>http://localhost:8080/manager/text</url>
+                        <username>admin</username>
+                        <password>123</password>
+                        <path>/WebInterface</path>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>

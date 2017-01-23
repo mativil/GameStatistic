@@ -6,8 +6,8 @@ import javax.persistence.*;
  * Created by Ivan on 21.01.2017.
  */
 @Entity
-@Table(name = "characterType")
-public class CharacterTypeEntity {
+@Table(name = "HeroType")
+public class HeroTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,10 +15,10 @@ public class CharacterTypeEntity {
     @Column(unique = true)
     private String name;
 
-    public CharacterTypeEntity() {
+    public HeroTypeEntity() {
     }
 
-    public CharacterTypeEntity(String name) {
+    public HeroTypeEntity(String name) {
         this.name = name;
     }
 }

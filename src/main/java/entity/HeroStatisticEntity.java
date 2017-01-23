@@ -6,14 +6,14 @@ import javax.persistence.*;
  * Created by Ivan on 21.01.2017.
  */
 @Entity
-@Table(name = "characterStatistic")
-public class CharacterStatisticEntity {
+@Table(name = "HeroStatistic")
+public class HeroStatisticEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(targetEntity = CharacterEntity.class, fetch = FetchType.EAGER)
-    private CharacterEntity characterEntity;
+    @OneToOne(targetEntity = HeroEntity.class, fetch = FetchType.EAGER)
+    private HeroEntity HeroEntity;
 
     @OneToOne(targetEntity = PlayerEntity.class, fetch = FetchType.EAGER)
     private PlayerEntity playerEntity;
@@ -24,18 +24,28 @@ public class CharacterStatisticEntity {
     @Column
     private int deathsCount;
 
-    @ManyToOne( targetEntity = TeamEntity.class, fetch = FetchType.EAGER)
-    private TeamEntity team;
-
-    protected CharacterStatisticEntity() {
+    public TeamEntity getTeam() {
+        return team;
     }
 
-    public CharacterStatisticEntity(CharacterEntity characterEntity, PlayerEntity playerEntity, int killsCount, int deathsCount) {
+    public void setTeam(TeamEntity team) {
+        this.team = team;
+    }
 
-        this.characterEntity = characterEntity;
+    @ManyToOne( targetEntity = TeamEntity.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "team_id")
+    private TeamEntity team;
+
+    protected HeroStatisticEntity() {
+    }
+
+    public HeroStatisticEntity(HeroEntity HeroEntity, PlayerEntity playerEntity, int killsCount, int deathsCount, TeamEntity team) {
+
+        this.HeroEntity = HeroEntity;
         this.playerEntity = playerEntity;
         this.killsCount = killsCount;
         this.deathsCount = deathsCount;
+        this.team = team;
     }
 
     public int getId() {
@@ -47,12 +57,12 @@ public class CharacterStatisticEntity {
         this.id = id;
     }
 
-    public CharacterEntity getcharacterEntity() {
-        return characterEntity;
+    public HeroEntity getHeroEntity() {
+        return HeroEntity;
     }
 
-    public void setcharacterEntity(CharacterEntity characterEntity) {
-        this.characterEntity = characterEntity;
+    public void setHeroEntity(HeroEntity HeroEntity) {
+        this.HeroEntity = HeroEntity;
     }
 
     public PlayerEntity getPlayerEntity() {
