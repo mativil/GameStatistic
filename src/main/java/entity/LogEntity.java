@@ -12,16 +12,16 @@ public class LogEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne(targetEntity = TeamEntity.class, fetch = FetchType.LAZY)
-    private TeamEntity team1;
+    private TeamEntity winTeam;
     @OneToOne(targetEntity = TeamEntity.class, fetch = FetchType.LAZY)
-    private TeamEntity team2;
+    private TeamEntity loseTeam;
 
     protected LogEntity() {
     }
 
-    public LogEntity(TeamEntity team1, TeamEntity team2) {
-        this.team1 = team1;
-        this.team2 = team2;
+    public LogEntity(TeamEntity winTeam, TeamEntity loseTeam) {
+        this.winTeam = winTeam;
+        this.loseTeam = loseTeam;
     }
 
     public int getId() {
@@ -32,19 +32,19 @@ public class LogEntity {
         this.id = id;
     }
 
-    public TeamEntity getTeam1() {
-        return team1;
+    public TeamEntity getwinTeam() {
+        return winTeam;
     }
 
-    public void setTeam1(TeamEntity team1) {
-        this.team1 = team1;
+    public void setwinTeam(TeamEntity winTeam) {
+        this.winTeam = winTeam;
     }
 
-    public TeamEntity getTeam2() {
-        return team2;
+    public TeamEntity getloseTeam() {
+        return loseTeam;
     }
 
-    public void setTeam2(TeamEntity team2) {
-        this.team2 = team2;
+    public void setloseTeam(TeamEntity loseTeam) {
+        this.loseTeam = loseTeam;
     }
 }
