@@ -113,6 +113,13 @@ public class HibernateMySqlTest extends Assert {
         em.getTransaction().commit();
     }
 
+    @Test
+    public void testMyHeroDao()
+    {
+        HeroDaoImpl dao = new HeroDaoImpl();
+        //dao.setSessionFactory();
+    }
+
 
 
 
