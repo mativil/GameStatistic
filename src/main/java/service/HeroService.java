@@ -2,10 +2,12 @@ package service;
 
 import java.util.List;
 import entity.HeroEntity;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Ivan on 26.01.2017.
  */
+
 public interface HeroService {
     public void addHero(HeroEntity h);
     public void updateHero(HeroEntity h);
