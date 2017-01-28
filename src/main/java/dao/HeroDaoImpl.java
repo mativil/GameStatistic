@@ -18,7 +18,7 @@ public class HeroDaoImpl implements HeroDao{
         this.sessionFactory = sessionFactory;
     }
     @Override
-    public void save(HeroEntity h) {
+    public void addHero(HeroEntity h) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         session.persist(h);
@@ -27,7 +27,7 @@ public class HeroDaoImpl implements HeroDao{
     }
 
     @Override
-    public void update(HeroEntity h) {
+    public void updateHero(HeroEntity h) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(h);
     }

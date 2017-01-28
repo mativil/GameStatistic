@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface HeroDao {
 
-    public void save(HeroEntity h);
+    public void addHero(HeroEntity h);
 
-    public void update(HeroEntity h);
+    public void updateHero(HeroEntity h);
 
     public List<HeroEntity> list();
 
