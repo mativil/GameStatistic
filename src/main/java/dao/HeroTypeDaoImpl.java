@@ -1,6 +1,7 @@
 package dao;
 
 import entity.HeroEntity;
+import entity.HeroTypeEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 //@Repository
 @Component
-public class HeroDaoImpl implements HeroDao{
+public class HeroTypeDaoImpl implements HeroTypeDao{
     @PersistenceContext
     protected EntityManager em;
 
@@ -26,29 +27,29 @@ public class HeroDaoImpl implements HeroDao{
     }
 
     @Override
-    public void addHero(HeroEntity h) {
+    public void addHeroType(HeroTypeEntity h) {
         em.persist(h);
     }
 
     @Override
-    public void updateHero(HeroEntity h) {
+    public void updateHeroType(HeroTypeEntity h) {
         em.merge(h);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<HeroEntity> list() {
-        List<HeroEntity> heroList = em.createQuery("from HeroEntity").getResultList();
+    public List<HeroTypeEntity> list() {
+        List<HeroTypeEntity> heroList = em.createQuery("from HeroEntity").getResultList();
         return heroList;
     }
 
     @Override
-    public HeroEntity getHeroById(int id) {
-        return em.getReference(HeroEntity.class, id);
+    public HeroTypeEntity geHeroTypeById(int id) {
+        return em.getReference(HeroTypeEntity.class, id);
     }
 
     @Override
-    public void removeHero(int id) {
-        em.remove(em.getReference(HeroEntity.class, id));
+    public void removeHeroType(int id) {
+        em.remove(em.getReference(HeroTypeEntity.class, id));
     }
 }

@@ -12,6 +12,14 @@ public class HeroTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Column(unique = true)
     private String name;
 

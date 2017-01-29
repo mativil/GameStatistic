@@ -2,6 +2,7 @@ package dao;
 
 import entity.HeroEntity;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -11,6 +12,8 @@ import java.util.List;
 
 
 public interface HeroDao {
+
+    public void setEntityManager(EntityManager em);
 
     public void addHero(HeroEntity h);
 

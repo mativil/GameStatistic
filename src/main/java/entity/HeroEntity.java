@@ -30,7 +30,11 @@ public class HeroEntity {
     @Column
     private String description;
 
-    @OneToOne(targetEntity = HeroTypeEntity.class)
+    public HeroTypeEntity getType() {
+        return type;
+    }
+
+    @OneToOne(targetEntity = HeroTypeEntity.class, fetch = FetchType.EAGER)
     HeroTypeEntity type;
 
     public HeroEntity() {

@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Ivan on 26.01.2017.
  */
 @Service
-public class HeroServiceImpl implements HeroService{
+public class HeroServiceImpl implements GenericService<HeroEntity> {
     private HeroDao heroDao;
 
     public void setHeroDao(HeroDao heroDao)
@@ -19,31 +19,31 @@ public class HeroServiceImpl implements HeroService{
     }
     @Override
     @Transactional
-    public void addHero(HeroEntity h) {
+    public void add(HeroEntity h) {
         this.heroDao.addHero(h);
     }
 
     @Override
     @Transactional
-    public void updateHero(HeroEntity h) {
+    public void update(HeroEntity h) {
         this.heroDao.updateHero(h);
     }
 
     @Override
     @Transactional
-    public List<HeroEntity> listHeroes() {
+    public List<HeroEntity> list() {
         return this.heroDao.list();
     }
 
     @Override
     @Transactional
-    public HeroEntity getHeroById(int id) {
-        return this.heroDao.getHeroById(id);
+    public HeroEntity getById(Object id) {
+        return this.heroDao.getHeroById((int)id);
     }
 
     @Override
     @Transactional
-    public void removeHero(int id) {
-        this.heroDao.removeHero(id);
+    public void remove(Object id) {
+        this.heroDao.removeHero((int)id);
     }
 }

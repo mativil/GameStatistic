@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class HibernateMySqlTest extends Assert {
@@ -108,16 +107,22 @@ public class HibernateMySqlTest extends Assert {
 
             em.persist(log);
         }
-
-
         em.getTransaction().commit();
     }
 
     @Test
-    public void testMyHeroDao()
+    public void test()
     {
-        HeroDaoImpl dao = new HeroDaoImpl();
+        /*
+        HeroDao dao = new HeroDaoImpl();
+        dao.setEntityManager(em);
+
+        for(HeroEntity h : dao.list())
+            System.out.println(h);
+
+        //HeroDaoImpl dao = new HeroDaoImpl();
         //dao.setSessionFactory();
+        */
     }
 
 
