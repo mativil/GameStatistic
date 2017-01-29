@@ -12,10 +12,10 @@ public class HeroStatisticEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(targetEntity = HeroEntity.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = HeroEntity.class, fetch = FetchType.EAGER)
     private HeroEntity HeroEntity;
 
-    @OneToOne(targetEntity = PlayerEntity.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = PlayerEntity.class, fetch = FetchType.EAGER)
     private PlayerEntity playerEntity;
 
     @Column

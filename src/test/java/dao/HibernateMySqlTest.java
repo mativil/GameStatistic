@@ -77,7 +77,7 @@ public class HibernateMySqlTest extends Assert {
             em.persist(player);
 
 
-        int gamesCnt = 1000;
+        int gamesCnt = 10;
         //и заданное количество игр
         for(int i = 0; i < gamesCnt; i++)
         {

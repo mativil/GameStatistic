@@ -9,11 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import service.GenericService;
+import service.RuntimeStatHeroService;
+import service.RuntimeStatService;
 
 @Controller
 @RequestMapping(value = "/")
-public class HeroController {
+public class MyController {
 
+    private GenericService heroService;
+    @Autowired
+    @Qualifier(value="heroService")
+    public void setHeroService(GenericService hs) {
+        this.heroService = hs;
+    }
+
+    private RuntimeStatService runtimeStatService;
+    @Autowired
+    @Qualifier(value="runtimeHeroService")
+    public void seRuntimeStatService(RuntimeStatService hs) {
+        this.runtimeStatService = hs;
+    }
     /*
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
@@ -23,13 +38,18 @@ public class HeroController {
     /*
 
     /*Запускаем на корень*/
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String heroesStat(Model model) {
+        //model.addAttribute("hero", new HeroEntity());
+        model.addAttribute("mapResults", this.runtimeStatService.getStatisticMap());
+        return "index";
+    }
 
-
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/heroes", method = RequestMethod.GET)
     public String listHeroes(Model model) {
         //model.addAttribute("hero", new HeroEntity());
         model.addAttribute("listHeroes", this.heroService.list());
-        return "index";
+        return "heroes";
     }
 
     @RequestMapping(value="/heroes/never/die", method = RequestMethod.GET)
@@ -38,13 +58,6 @@ public class HeroController {
         return "pic";
     }
 
-    private GenericService heroService;
-
-    @Autowired
-    @Qualifier(value="heroService")
-    public void setHeroService(GenericService hs) {
-        this.heroService = hs;
-    }
 
 
 

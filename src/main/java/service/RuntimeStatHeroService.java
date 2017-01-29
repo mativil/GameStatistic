@@ -5,9 +5,11 @@ import dao.HeroStatisticDao;
 import dao.LogDao;
 import dao.TeamDao;
 import entity.HeroEntity;
+import entity.HeroStatisticEntity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Ivan on 29.01.2017.
@@ -40,13 +42,18 @@ public class RuntimeStatHeroService implements RuntimeStatService<HeroEntity, In
     }
 
     @Override
-    public Map<HeroEntity, Integer> getStatisticList() {
-        result = new HashMap<HeroEntity, Integer>();
+    public Map<HeroEntity, Integer> getStatisticMap() {
+        result = new TreeMap<HeroEntity, Integer>();
 
         for(HeroEntity hero : heroDao.list())
         {
-            int totalCnt;
-            int winCnt;
+            int avg = 0;
+            for(HeroStatisticEntity heroStat : hero.getHeroStatInfo())
+            {
+                avg+=heroStat.getKillsCount();
+            }
+                avg/=hero.getHeroStatInfo().size();
+            result.put(hero, avg);
         }
         return result;
     }

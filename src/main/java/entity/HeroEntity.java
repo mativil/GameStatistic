@@ -3,6 +3,7 @@ package entity;
 import com.sun.istack.internal.Nullable;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Ivan on 19.01.2017.
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "`Hero`")
 
-public class HeroEntity {
+public class HeroEntity implements Comparable{
 
     /**
      * id пользователя
@@ -34,8 +35,21 @@ public class HeroEntity {
         return type;
     }
 
-    @OneToOne(targetEntity = HeroTypeEntity.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = HeroTypeEntity.class, fetch = FetchType.EAGER)
     HeroTypeEntity type;
+
+    @OneToMany(targetEntity = HeroStatisticEntity.class,
+            fetch = FetchType.EAGER,
+            mappedBy = "team")
+    List<HeroStatisticEntity> heroStatInfo;
+
+    public List<HeroStatisticEntity> getHeroStatInfo() {
+        return heroStatInfo;
+    }
+
+    public void setHeroStatInfo(List<HeroStatisticEntity> heroStatInfo) {
+        this.heroStatInfo = heroStatInfo;
+    }
 
     public HeroEntity() {
     }
@@ -70,4 +84,8 @@ public class HeroEntity {
         this.description = description;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        return this.id - ((HeroEntity)o).getId();
+    }
 }

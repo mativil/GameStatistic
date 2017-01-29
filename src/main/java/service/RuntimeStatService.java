@@ -10,6 +10,6 @@ import java.util.Map;
  */
 @Service
 public interface RuntimeStatService<K, V> {
-    public Map<K,V> getStatisticList();
+    public Map<K,V> getStatisticMap();
     //public Map
 }
