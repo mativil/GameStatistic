@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Ivan on 21.01.2017.
@@ -11,17 +12,16 @@ public class LogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(targetEntity = TeamEntity.class, fetch = FetchType.LAZY)
-    private TeamEntity winTeam;
-    @OneToOne(targetEntity = TeamEntity.class, fetch = FetchType.LAZY)
-    private TeamEntity loseTeam;
 
-    protected LogEntity() {
+    @OneToMany(targetEntity = TeamEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "log")
+    private
+    List<TeamEntity> teamList;
+
+    public LogEntity() {
     }
 
-    public LogEntity(TeamEntity winTeam, TeamEntity loseTeam) {
-        this.winTeam = winTeam;
-        this.loseTeam = loseTeam;
+    public LogEntity(List<TeamEntity> teamList) {
+        this.teamList = teamList;
     }
 
     public int getId() {
@@ -32,19 +32,11 @@ public class LogEntity {
         this.id = id;
     }
 
-    public TeamEntity getwinTeam() {
-        return winTeam;
+    public List<TeamEntity> getTeamList() {
+        return teamList;
     }
 
-    public void setwinTeam(TeamEntity winTeam) {
-        this.winTeam = winTeam;
-    }
-
-    public TeamEntity getloseTeam() {
-        return loseTeam;
-    }
-
-    public void setloseTeam(TeamEntity loseTeam) {
-        this.loseTeam = loseTeam;
+    public void setTeamList(List<TeamEntity> teamList) {
+        this.teamList = teamList;
     }
 }

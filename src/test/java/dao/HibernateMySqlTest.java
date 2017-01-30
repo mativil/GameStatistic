@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HibernateMySqlTest extends Assert {
@@ -77,35 +78,41 @@ public class HibernateMySqlTest extends Assert {
             em.persist(player);
 
 
-        int gamesCnt = 10;
+        int gamesCnt = 1000;
         //и заданное количество игр
         for(int i = 0; i < gamesCnt; i++)
         {
+            LogEntity log = new LogEntity();
+            em.persist(log);
             //формируем команды
-            TeamEntity team1 = new TeamEntity();
+            TeamEntity team1 = new TeamEntity(log);
+            TeamEntity team2 = new TeamEntity(log);
+            if(Math.random() > 0.5) {
+                team1.setIsWin(true);
+                team2.setIsWin(false);
+            }
+            else {
+                team1.setIsWin(false);
+                team2.setIsWin(true);
+
+            }
+
             em.persist(team1);
+            em.persist(team2);
+
             for(int j = 0; j < 5; j++) {
                 HeroStatisticEntity heroStat =
                         new HeroStatisticEntity(heroes.get((int) (Math.random() * 10)), players.get(j), (int) (Math.random() * 20), (int) (Math.random() * 20), team1);
                 em.persist(heroStat);
             }
 
-            TeamEntity team2 = new TeamEntity();
-            em.persist(team2);
+
             for(int j = 0; j < 5; j++) {
                 HeroStatisticEntity heroStat =
                         new HeroStatisticEntity(heroes.get((int) (Math.random() * 10)), players.get(j+5), (int) (Math.random() * 20), (int) (Math.random() * 20), team2);
                 em.persist(heroStat);
             }
 
-            //и лог
-            LogEntity log;
-            if(Math.random() > 0.5)
-                log = new LogEntity(team1, team2);
-            else
-                log = new LogEntity(team2, team1);
-
-            em.persist(log);
         }
         em.getTransaction().commit();
     }
@@ -113,16 +120,6 @@ public class HibernateMySqlTest extends Assert {
     @Test
     public void test()
     {
-        /*
-        HeroDao dao = new HeroDaoImpl();
-        dao.setEntityManager(em);
-
-        for(HeroEntity h : dao.list())
-            System.out.println(h);
-
-        //HeroDaoImpl dao = new HeroDaoImpl();
-        //dao.setSessionFactory();
-        */
     }
 
 

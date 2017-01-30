@@ -40,7 +40,7 @@ public class HeroEntity implements Comparable{
 
     @OneToMany(targetEntity = HeroStatisticEntity.class,
             fetch = FetchType.EAGER,
-            mappedBy = "team")
+            mappedBy = "HeroEntity")
     List<HeroStatisticEntity> heroStatInfo;
 
     public List<HeroStatisticEntity> getHeroStatInfo() {

@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Ivan on 21.01.2017.
@@ -13,6 +14,11 @@ public class PlayerEntity {
     private int id;
     @Column(unique = true)
     private String name;
+
+    @OneToMany(targetEntity = HeroStatisticEntity.class,
+            fetch = FetchType.EAGER,
+            mappedBy = "playerEntity")
+    List<HeroStatisticEntity> heroStatInfo;
 
     public PlayerEntity() {
     }
@@ -37,4 +43,11 @@ public class PlayerEntity {
         this.name = name;
     }
 
+    public List<HeroStatisticEntity> getHeroStatInfo() {
+        return heroStatInfo;
+    }
+
+    public void setHeroStatInfo(List<HeroStatisticEntity> heroStatInfo) {
+        this.heroStatInfo = heroStatInfo;
+    }
 }

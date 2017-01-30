@@ -14,14 +14,22 @@ public class TeamEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column
+    private boolean isWin;
+
     @OneToMany(targetEntity = HeroStatisticEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "team")
     private
     List<HeroStatisticEntity> HeroestatisticEntityList;
 
-    @OneToOne(targetEntity = LogEntity.class, fetch = FetchType.EAGER, mappedBy = "winTeam")
-    private LogEntity winLogEntity;
+    @ManyToOne(targetEntity = LogEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private
+    LogEntity log;
 
     public TeamEntity() {
+    }
+
+    public TeamEntity(LogEntity log) {
+        this.log = log;
     }
 
     public TeamEntity(List<HeroStatisticEntity> HeroestatisticEntityList) {
@@ -40,11 +48,11 @@ public class TeamEntity {
         this.HeroestatisticEntityList = HeroestatisticEntityList;
     }
 
-    public LogEntity getWinLogEntity() {
-        return winLogEntity;
+    public boolean getIsWin() {
+        return isWin;
     }
 
-    public void setWinLogEntity(LogEntity winLogEntity) {
-        this.winLogEntity = winLogEntity;
+    public void setIsWin(boolean isWin) {
+        this.isWin = isWin;
     }
 }

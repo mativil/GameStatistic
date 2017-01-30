@@ -19,7 +19,7 @@ public class RuntimeStatHeroService{
     {
         private double avgKills;
         private double avgDeaths;
-        private int gamesCnt;
+        private double gamesCnt;
 
         public double getAvgKills() {
             return avgKills;
@@ -37,7 +37,7 @@ public class RuntimeStatHeroService{
             this.avgDeaths = avgDeaths;
         }
 
-        public int getGamesCnt() {
+        public double getGamesCnt() {
             return gamesCnt;
         }
 
@@ -45,7 +45,7 @@ public class RuntimeStatHeroService{
             this.gamesCnt = gamesCnt;
         }
 
-        public Results(double avgKills, double avgDeaths, int gamesCnt) {
+        public Results(double avgKills, double avgDeaths, double gamesCnt) {
             this.avgKills = avgKills;
             this.avgDeaths = avgDeaths;
             this.gamesCnt = gamesCnt;
@@ -90,30 +90,25 @@ public class RuntimeStatHeroService{
 
         for(HeroEntity hero : heroDao.list())
         {
-            Set<LogEntity> logSet = new HashSet<LogEntity>();
             int avgKills = 0;
             int avgDeaths = 0;
             int gamesCnt = 0;
-            for(HeroStatisticEntity heroStat : hero.getHeroStatInfo())
-            {
-                avgKills+=heroStat.getKillsCount();
-                avgDeaths+=heroStat.getDeathsCount();
+            int totalHeroCnt = 0;
+            int winHeroCnt = 0;
+            for(HeroStatisticEntity heroStat : hero.getHeroStatInfo()) {
 
-                LogEntity log = heroStat.getTeam().getWinLogEntity();
-                //для подсчета общего количества пофиг. Просто нужны уникальные
-                logSet.add(log);
-                //если игрок победил
-                if(log.getwinTeam() == heroStat.getTeam())
-                {
+                avgKills += heroStat.getKillsCount();
+                avgDeaths += heroStat.getDeathsCount();
 
-                }
-
+                totalHeroCnt++;
+                if (heroStat.getTeam().getIsWin())
+                    winHeroCnt++;
             }
-
-            Results results = new Results((double) avgKills/hero.getHeroStatInfo().size(),
-                    (double) avgDeaths/hero.getHeroStatInfo().size(), logSet.size());
+            double resAvgKills = (double)avgKills / hero.getHeroStatInfo().size();
+            double resAvgDeaths = (double) avgDeaths / hero.getHeroStatInfo().size();
+            double resHeroWinPersent = ((double)winHeroCnt)/totalHeroCnt * 100;
+            Results results = new Results(resAvgKills, resAvgDeaths, resHeroWinPersent);
             result.put(hero, results);
-
         }
     }
 }

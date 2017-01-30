@@ -18,6 +18,9 @@ public class HeroStatisticEntity {
     @ManyToOne(targetEntity = PlayerEntity.class, fetch = FetchType.EAGER)
     private PlayerEntity playerEntity;
 
+    @ManyToOne(targetEntity = TeamEntity.class, fetch = FetchType.EAGER)
+    private TeamEntity team;
+
     @Column
     private int killsCount;
 
@@ -32,9 +35,7 @@ public class HeroStatisticEntity {
         this.team = team;
     }
 
-    @ManyToOne( targetEntity = TeamEntity.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "team_id")
-    private TeamEntity team;
+
 
     protected HeroStatisticEntity() {
     }
