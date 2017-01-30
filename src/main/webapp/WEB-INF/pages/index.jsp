@@ -59,6 +59,8 @@
 				<th>Имя</th>
                   <th>Класс</th>
                   <th>Убийств в среднем</th>
+				  <th>Смертей в среднем</th>
+				  <th>Количество игр</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -70,8 +72,14 @@
                     </td>
                     <td>${mapItem.key.getType().getName()}</td>
                 <td>
-                        ${mapItem.value}
+                        ${mapItem.value.avgKills}
                 </td>
+					<td>
+							${mapItem.value.avgDeaths}
+					</td>
+					<td>
+							${mapItem.value.gamesCnt}
+					</td>
                 </tr>
             </c:forEach>
 			</tbody>

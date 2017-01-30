@@ -23,10 +23,10 @@ public class MyController {
         this.heroService = hs;
     }
 
-    private RuntimeStatService runtimeStatService;
+    private RuntimeStatHeroService runtimeStatService;
     @Autowired
     @Qualifier(value="runtimeHeroService")
-    public void seRuntimeStatService(RuntimeStatService hs) {
+    public void seRuntimeStatHeroService(RuntimeStatHeroService hs) {
         this.runtimeStatService = hs;
     }
     /*

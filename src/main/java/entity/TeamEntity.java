@@ -18,6 +18,9 @@ public class TeamEntity {
     private
     List<HeroStatisticEntity> HeroestatisticEntityList;
 
+    @OneToOne(targetEntity = LogEntity.class, fetch = FetchType.EAGER, mappedBy = "winTeam")
+    private LogEntity winLogEntity;
+
     public TeamEntity() {
     }
 
@@ -35,5 +38,13 @@ public class TeamEntity {
 
     public void setHeroestatisticEntityList(List<HeroStatisticEntity> HeroestatisticEntityList) {
         this.HeroestatisticEntityList = HeroestatisticEntityList;
+    }
+
+    public LogEntity getWinLogEntity() {
+        return winLogEntity;
+    }
+
+    public void setWinLogEntity(LogEntity winLogEntity) {
+        this.winLogEntity = winLogEntity;
     }
 }
