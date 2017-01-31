@@ -65,6 +65,8 @@ public class HibernateMySqlTest extends Assert {
         heroes.add(new HeroEntity("Базилио", ctSpec));
         heroes.add(new HeroEntity("Антоха", ctSupport));
         heroes.add(new HeroEntity("Бесполезный дворф", ctTank));
+        heroes.add(new HeroEntity("Мистер Пончик", ctWarrior));
+        heroes.add(new HeroEntity("Харамбе", ctWarrior));
 
         for(HeroEntity hero: heroes)
             em.persist(hero);
@@ -78,7 +80,7 @@ public class HibernateMySqlTest extends Assert {
             em.persist(player);
 
 
-        int gamesCnt = 1000;
+        int gamesCnt = 500;
         //и заданное количество игр
         for(int i = 0; i < gamesCnt; i++)
         {
@@ -87,7 +89,7 @@ public class HibernateMySqlTest extends Assert {
             //формируем команды
             TeamEntity team1 = new TeamEntity(log);
             TeamEntity team2 = new TeamEntity(log);
-            if(Math.random() > 0.5) {
+            if(Math.random() > (Math.random()/4 + 0.37)) {
                 team1.setIsWin(true);
                 team2.setIsWin(false);
             }
@@ -102,14 +104,14 @@ public class HibernateMySqlTest extends Assert {
 
             for(int j = 0; j < 5; j++) {
                 HeroStatisticEntity heroStat =
-                        new HeroStatisticEntity(heroes.get((int) (Math.random() * 10)), players.get(j), (int) (Math.random() * 20), (int) (Math.random() * 20), team1);
+                        new HeroStatisticEntity(heroes.get((int) (Math.random() * heroes.size())), players.get(j), (int) (Math.random() * 20), (int) (Math.random() * 20), team1);
                 em.persist(heroStat);
             }
 
 
             for(int j = 0; j < 5; j++) {
                 HeroStatisticEntity heroStat =
-                        new HeroStatisticEntity(heroes.get((int) (Math.random() * 10)), players.get(j+5), (int) (Math.random() * 20), (int) (Math.random() * 20), team2);
+                        new HeroStatisticEntity(heroes.get((int) (Math.random() * Math.random() * heroes.size())), players.get(j+5), (int) (Math.random() * 20), (int) (Math.random() * 20), team2);
                 em.persist(heroStat);
             }
 

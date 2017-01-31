@@ -44,7 +44,6 @@
 									</li>
 									</ul>
 					  </div>
-
 				</div>
 				</div>
 		<div class="container">
@@ -60,7 +59,8 @@
                   <th>Класс</th>
                   <th>Убийств в среднем</th>
 				  <th>Смертей в среднем</th>
-				  <th>Процент побед</th>
+				  <th>Победы (%)</th>
+				  <th>Популярность  (%)</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -72,13 +72,16 @@
                     </td>
                     <td>${mapItem.key.getType().getName()}</td>
                 <td>
-                        ${mapItem.value.avgKills}
+                        ${String.format("%.2f", mapItem.value.avgKills)}
                 </td>
 					<td>
-							${mapItem.value.avgDeaths}
+							${String.format("%.2f", mapItem.value.avgDeaths)}
 					</td>
 					<td>
-							${mapItem.value.gamesCnt}
+							${String.format("%.2f", mapItem.value.gamesCnt)}
+					</td>
+					<td>
+							${String.format("%.2f", mapItem.value.popularity)}
 					</td>
                 </tr>
             </c:forEach>

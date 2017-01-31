@@ -55,4 +55,12 @@ public class TeamEntity {
     public void setIsWin(boolean isWin) {
         this.isWin = isWin;
     }
+
+    public LogEntity getLog() {
+        return log;
+    }
+
+    public void setLog(LogEntity log) {
+        this.log = log;
+    }
 }

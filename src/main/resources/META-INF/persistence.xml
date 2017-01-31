@@ -15,7 +15,7 @@
             <!-- Пароль пользователя БД -->
             <property name="javax.persistence.jdbc.password" value="p1ssw0rd"/>
             <!-- Показывать SQL запросы перед выполнением -->
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
             <!-- Форматировать SQL-запросы -->
             <property name="hibernate.format_sql" value="true"/>
             <!-- Диалект языка SQL -->

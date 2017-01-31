@@ -22,6 +22,7 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:annotation-driven/>
 
+    <!-- Root Context: defines shared resources visible to all other web components -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="Production-MySQL" />
     </bean>
@@ -49,6 +50,4 @@
         <property name="teamDao" ref="teamDao"/>
         <property name="logDao" ref="logDao"/>
     </bean>
-
-
 </beans>
