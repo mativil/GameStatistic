@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@page isELIgnored="false" %>
+<%@ page import="java.util.Hashtable"%>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -19,15 +20,16 @@
 										  <div class="navbar">
 										  <div class="navbar-inner">				
 								<ul class="nav">
-									<li><a href="#"><i class="icon-star"></i> Лига игроков</a></li>
+									<li><a href="#"><i class="icon-star"></i>Лига игроков</a></li>
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-											<i class="icon-eye-open"></i> Информация
+											<i class="icon-eye-open"></i>Игровая Информация
 											<b class="caret"></b>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Герои</a></li>
+											<li><a href="/heroes">Герои</a></li>
 											<li><a href="#">Карты</a></li>
+											<li><a href="/logs">Список матчей</a></li>
 										</ul>
 									</li>
 									<li class="dropdown">
@@ -37,39 +39,33 @@
 										</a>
 										<ul class="dropdown-menu">
 											<li><a href="#">Профиль</a></li>
-											<li><a href="#">История матчей</a></li>
-											<li><a href="#">Загрузить реплей</a></li>
+											<li><a href="#">История моих матчей</a></li>
+											<li><a href="#">Загрузить матч</a></li>
 										</ul>
 									</li>
 									</ul>
 					  </div>
-
 				</div>
 				</div>
-		<div class="container">
-			<h1>Приветствую!</h1>
-			<p class="text-info">На этом сайте вы можете ознакомиться с различной информацией компьютерной игре "Герои Штангенциркуля". </p>   
-			<p class="text-info">${message} </p>   
-		</div>
 		<div class="well">
 			 <table class="table">
 			<thead>
 			  <tr>
-				<th>Номер</th>
-				<th>Имя</th>
-				  <th>Класс</th>
+				  <th>Номер</th>
+				  <th>Карта</th>
+                  <th>Дата загрузки</th>
+				  <th>Длительность</th>
 			  </tr>
 			</thead>
 			<tbody>
-			<c:forEach var="hero" items="${listHeroes}">
-				<!--
-				<tr>
-					<td>${hero.id}</td>
-					<td>${hero.name}</td>
-					<td>${hero.type.name}</td>
-				</tr>
-				-->
-			</c:forEach>
+            <c:forEach var="log" items="${listLogs}">
+                <tr>
+                    <td>${log.id}</td>
+                    <td>${log.map.name}</td>
+                    <td>${log.loadTime}</td>
+                    <td>${log.duration}</td>
+                </tr>
+            </c:forEach>
 			</tbody>
 		  </table>
 		</div>

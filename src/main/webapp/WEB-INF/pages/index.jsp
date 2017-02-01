@@ -20,15 +20,16 @@
 										  <div class="navbar">
 										  <div class="navbar-inner">				
 								<ul class="nav">
-									<li><a href="#"><i class="icon-star"></i> Лига игроков</a></li>
+									<li><a href="#"><i class="icon-star"></i>Лига игроков</a></li>
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-											<i class="icon-eye-open"></i> Информация
+											<i class="icon-eye-open"></i>Игровая Информация
 											<b class="caret"></b>
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="#">Герои</a></li>
+											<li><a href="/heroes">Герои</a></li>
 											<li><a href="#">Карты</a></li>
+											<li><a href="/logs">Список матчей</a></li>
 										</ul>
 									</li>
 									<li class="dropdown">
@@ -38,8 +39,8 @@
 										</a>
 										<ul class="dropdown-menu">
 											<li><a href="#">Профиль</a></li>
-											<li><a href="#">История матчей</a></li>
-											<li><a href="#">Загрузить реплей</a></li>
+											<li><a href="#">История моих матчей</a></li>
+											<li><a href="#">Загрузить матч</a></li>
 										</ul>
 									</li>
 									</ul>
@@ -48,7 +49,8 @@
 				</div>
 		<div class="container">
 			<h1>Приветствую!</h1>
-			<p class="text-info">На этом сайте вы можете ознакомиться с различной информацией компьютерной игре "Герои Штангенциркуля". </p>
+			<p class="text-info">На этом сайте вы можете ознакомиться с различной информацией компьютерной игре "Герои Штангенциркуля".
+            На данный момент загружено ${logsCount} игр</p>
 		</div>
 		<div class="well">
 			 <table class="table">
@@ -68,7 +70,7 @@
                 <tr>
                 <td>${mapItem.key.getId()}
                 </td>
-                    <td>${mapItem.key.getName()}
+                    <td><a href="<c:url value="/heroes/${mapItem.key.id}"/>">${mapItem.key.getName()}</a>
                     </td>
                     <td>${mapItem.key.getType().getName()}</td>
                 <td>

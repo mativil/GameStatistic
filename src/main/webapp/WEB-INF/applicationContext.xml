@@ -1,5 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <context:annotation-config/>
+    <context:component-scan base-package="org.mativil"/>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="Production-MySQL" />
+    </bean>
+
+    <bean id="heroDAO"
+          class="org.mativil.dao.HeroDaoImpl">
+    </bean>
+    <bean id="heroStatisticDao"
+          class="org.mativil.dao.HeroStatisticDaoImpl">
+    </bean>
+    <bean id="teamDao"
+          class="org.mativil.dao.TeamDaoImpl">
+    </bean>
+    <bean id="logDao"
+          class="org.mativil.dao.LogDaoImpl">
+    </bean>
+
+    <bean id="heroService" class="org.mativil.service.HeroServiceImpl">
+    </bean>
+
+    <bean id="logService" class="org.mativil.service.LogServiceImpl">
+        <property name="logDao" ref="logDao"/>
+    </bean>
+
+    <bean id="runtimeHeroService" class="org.mativil.service.RuntimeStatHeroService">
+        <property name="heroDao" ref="heroDAO"/>
+        <property name="heroStatisticDao" ref="heroStatisticDao"/>
+        <property name="teamDao" ref="teamDao"/>
+        <property name="logDao" ref="logDao"/>
+    </bean>
 </beans>
