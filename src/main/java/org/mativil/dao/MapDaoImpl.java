@@ -16,12 +16,6 @@ public class MapDaoImpl implements MapDao{
     protected EntityManager em;
 
     @Override
-    public void setEntityManager(EntityManager em)
-    {
-        this.em = em;
-    }
-
-    @Override
     public void addMap(MapEntity l) {
         em.persist(l);
     }

@@ -16,11 +16,6 @@ public class HeroTypeDaoImpl implements HeroTypeDao{
     @PersistenceContext
     protected EntityManager em;
 
-    public void setEntityManager(EntityManager em)
-    {
-        this.em = em;
-    }
-
     @Override
     public void addHeroType(HeroTypeEntity h) {
         em.persist(h);

@@ -16,12 +16,6 @@ public class LogDaoImpl implements LogDao{
     protected EntityManager em;
 
     @Override
-    public void setEntityManager(EntityManager em)
-    {
-        this.em = em;
-    }
-
-    @Override
     public void addLog(LogEntity l) {
         em.persist(l);
     }

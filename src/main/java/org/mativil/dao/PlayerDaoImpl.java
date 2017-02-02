@@ -16,12 +16,6 @@ public class PlayerDaoImpl implements PlayerDao{
     protected EntityManager em;
 
     @Override
-    public void setEntityManager(EntityManager em)
-    {
-        this.em = em;
-    }
-
-    @Override
     public void addPlayer(PlayerEntity l) {
         em.persist(l);
     }

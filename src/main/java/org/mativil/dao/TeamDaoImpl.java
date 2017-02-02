@@ -16,12 +16,6 @@ public class TeamDaoImpl implements TeamDao{
     protected EntityManager em;
 
     @Override
-    public void setEntityManager(EntityManager em)
-    {
-        this.em = em;
-    }
-
-    @Override
     public void addTeam(TeamEntity l) {
         em.persist(l);
     }

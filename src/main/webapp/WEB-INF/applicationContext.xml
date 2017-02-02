@@ -10,6 +10,10 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.mativil"/>
 
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="Production-MySQL" />
     </bean>

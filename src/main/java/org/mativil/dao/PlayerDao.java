@@ -9,7 +9,6 @@ import java.util.List;
  * Created by Ivan on 29.01.2017.
  */
 public interface PlayerDao {
-    public void setEntityManager(EntityManager em);
 
     public void addPlayer(PlayerEntity l);
 

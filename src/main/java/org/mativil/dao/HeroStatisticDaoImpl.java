@@ -16,11 +16,6 @@ public class HeroStatisticDaoImpl implements HeroStatisticDao{
     protected EntityManager em;
 
     @Override
-    public void setEntityManager(EntityManager em) {
-        this.em = em;
-    }
-
-    @Override
     public void addHeroStatistic(HeroStatisticEntity h) {
         em.persist(h);
     }

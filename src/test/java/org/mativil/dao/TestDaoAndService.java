@@ -39,7 +39,6 @@ public class TestDaoAndService extends Assert {
 
         LogServiceImpl logService = new LogServiceImpl();
         LogDaoImpl logDao = new LogDaoImpl();
-        logDao.setEntityManager(em);
         logService.setLogDao(logDao);
 
         //Добавим 4 типа героев

@@ -9,7 +9,6 @@ import java.util.List;
  * Created by Ivan on 29.01.2017.
  */
 public interface TeamDao {
-    public void setEntityManager(EntityManager em);
 
     public void addTeam(TeamEntity l);
 
