@@ -14,30 +14,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.mativil.service.GenericService;
 import org.mativil.service.RuntimeStatHeroService;
 
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping(value = "/")
 public class MyController {
 
+    @Resource
     private GenericService<HeroEntity> heroService;
-    @Autowired
-    @Qualifier(value="heroService")
-    public void setHeroService(GenericService hs) {
-        this.heroService = hs;
-    }
 
+    @Resource
     private GenericService<LogEntity> logService;
-    @Autowired
-    @Qualifier(value="logService")
-    public void setLogService(GenericService hs) {
-        this.logService = hs;
-    }
 
+    @Resource
     private RuntimeStatHeroService runtimeStatHeroService;
-    @Autowired
-    @Qualifier(value="runtimeHeroService")
-    public void seRuntimeStatHeroService(RuntimeStatHeroService hs) {
-        this.runtimeStatHeroService = hs;
-    }
     /*
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {

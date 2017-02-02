@@ -6,7 +6,10 @@ import org.mativil.dao.LogDao;
 import org.mativil.dao.TeamDao;
 import org.mativil.entity.HeroEntity;
 import org.mativil.entity.HeroStatisticEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,6 +17,7 @@ import java.util.TreeMap;
 /**
  * Created by Ivan on 29.01.2017.
  */
+@Service
 public class RuntimeStatHeroService{
 
         public static class Results
@@ -65,12 +69,16 @@ public class RuntimeStatHeroService{
 
     private Map<HeroEntity, Results> result;
 
+    @Resource
     private LogDao logDao;
 
+    @Resource
     private TeamDao teamDao;
 
+    @Resource
     private HeroStatisticDao heroStatisticDao;
 
+    @Resource
     private HeroDao heroDao;
 
     public void setLogDao(LogDao logDao) {

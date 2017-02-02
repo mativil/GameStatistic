@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class HeroServiceImpl implements GenericService<HeroEntity> {
 
-    @Qualifier("heroDaoImpl")
     @Autowired
     private HeroDao heroDao;
 

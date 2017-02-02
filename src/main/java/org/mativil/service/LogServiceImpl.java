@@ -2,6 +2,7 @@ package org.mativil.service;
 
 import org.mativil.dao.LogDao;
 import org.mativil.entity.LogEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,8 @@ import java.util.List;
  */
 @Service
 public class LogServiceImpl implements GenericService<LogEntity> {
+
+    @Autowired
     private LogDao logDao;
 
     public void setLogDao(LogDao logDao)
