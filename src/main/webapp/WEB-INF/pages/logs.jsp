@@ -23,8 +23,4 @@
             </c:forEach>
 			</tbody>
 		  </table>
-		</div>
-		<div class="footer">
-		<p align="center">&copy; 2017. Created by mativil</p>
-		</div>
 </t:layout>

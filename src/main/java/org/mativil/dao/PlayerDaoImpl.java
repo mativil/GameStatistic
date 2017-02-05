@@ -33,7 +33,7 @@ public class PlayerDaoImpl implements PlayerDao{
 
     @Override
     public PlayerEntity getPlayerById(int id) {
-        return em.getReference(PlayerEntity.class, id);
+        return em.find(PlayerEntity.class, id);
     }
 
     @Override

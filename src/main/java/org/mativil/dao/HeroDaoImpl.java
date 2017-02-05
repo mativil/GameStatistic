@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Created by MI on 25.01.2017.
  */
-//@Repository
 @Component
 public class HeroDaoImpl implements HeroDao{
     @PersistenceContext
