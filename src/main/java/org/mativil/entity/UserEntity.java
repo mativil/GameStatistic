@@ -3,15 +3,15 @@ package org.mativil.entity;
 import javax.persistence.*;
 
 /**
- * Created by MI on 03.02.2017.
+ * Created by Ivan on 21.01.2017.
  */
 @Entity
-@Table(name = "account")
+@Table(name = "user")
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     public int getId() {
         return id;
     }
@@ -20,28 +20,31 @@ public class UserEntity {
         this.id = id;
     }
 
-    @Column(name="email", columnDefinition = "varchar(100)", nullable = false, unique = true)
-    private String email;
-
-    public String getEmail() {
-        return email;
+    @Column
+    private String login;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    @Column (name = "salt", columnDefinition = "varchar(20)", nullable = false)
-    private String salt;
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    @Column(name = "password", columnDefinition = "varchar(100)", nullable = false)
+    @Column
     private String password;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UserEntity(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
+    public UserEntity() {
+    }
 }

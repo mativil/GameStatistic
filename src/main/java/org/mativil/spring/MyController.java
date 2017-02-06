@@ -50,6 +50,12 @@ public class MyController {
         return "logs";
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test(Model model) {
+        return "registration_form";
+    }
+
+
     @RequestMapping(value = "/heroes", method = RequestMethod.GET)
     public String listHeroes(Model model) {
         //model.addAttribute("hero", new HeroEntity());

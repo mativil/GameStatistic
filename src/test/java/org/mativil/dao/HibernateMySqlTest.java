@@ -39,6 +39,11 @@ public class HibernateMySqlTest extends Assert {
     public void testSystem(){
         em.getTransaction().begin();
 
+        UserEntity user = new UserEntity();
+        user.setLogin("test");
+        user.setPassword("123");
+        em.persist(user);
+
         //Добавим 4 типа героев
         HeroTypeEntity ctWarrior = new HeroTypeEntity("Боец");
         HeroTypeEntity ctSupport = new HeroTypeEntity("Поддержка");

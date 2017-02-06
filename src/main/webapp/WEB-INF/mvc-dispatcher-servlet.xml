@@ -15,7 +15,6 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <!-- После названия страницы добавляется suffix -->
         <property name="suffix" value=".jsp"/>
-
         <property name="contentType" value="text/html; charset=utf-8"/>
     </bean>
 
